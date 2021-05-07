@@ -1,17 +1,19 @@
 package com.example.petdaycare;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
-//import com.example.petdaycare.Data.PetContract.UserEntry;
+import android.widget.Switch;
 
 import java.util.ArrayList;
+import com.example.petdaycare.Data.PetContract;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     ArrayList<Pet> pets = new ArrayList<Pet>();
 
@@ -21,11 +23,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         ListView mainList = (ListView) findViewById(R.id.mainList);
+        ImageButton pawButton = findViewById(R.id.pawButton);
 
         pets = setPets();
         PetAdapter petAdapter = new PetAdapter(this, 0, pets);
         mainList.setAdapter(petAdapter);
         mainList.setOnItemClickListener(this);
+        pawButton.setOnClickListener(this);
     }
 
     public ArrayList<Pet> setPets() {
@@ -53,5 +57,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void openPetActivity() {
         Intent petActivity = new Intent(this, activity_pet.class);
         startActivity(petActivity);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.pawButton:
+                openNewPetActivity();
+                break;
+        }
+    }
+
+    public void openNewPetActivity() {
+        Intent intent = new Intent(this, newPetActivity.class);
+        startActivity(intent);
     }
 }
