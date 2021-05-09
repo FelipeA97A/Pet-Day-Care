@@ -2,6 +2,7 @@ package com.example.petdaycare;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,11 +12,14 @@ import android.widget.Switch;
 
 import java.util.ArrayList;
 import com.example.petdaycare.Data.PetContract;
+import com.example.petdaycare.Data.PetDBHelper;;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     ArrayList<Pet> pets = new ArrayList<Pet>();
+    PetDBHelper dbHelper = new PetDBHelper(this);
+    SQLiteDatabase db = dbHelper.getReadableDatabase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
