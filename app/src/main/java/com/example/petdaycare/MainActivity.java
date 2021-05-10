@@ -18,8 +18,6 @@ import com.example.petdaycare.Data.PetDBHelper;;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     ArrayList<Pet> pets = new ArrayList<Pet>();
-    PetDBHelper dbHelper = new PetDBHelper(this);
-    SQLiteDatabase db = dbHelper.getReadableDatabase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ListView mainList = (ListView) findViewById(R.id.mainList);
         ImageButton pawButton = findViewById(R.id.pawButton);
+        PetDBHelper dbHelper = new PetDBHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         pets = setPets();
         PetAdapter petAdapter = new PetAdapter(this, 0, pets);

@@ -1,10 +1,13 @@
 package com.example.petdaycare.Data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.example.petdaycare.Pet;
 
 public class PetDBHelper extends SQLiteOpenHelper {
     // Nombre de la BBDD
@@ -12,6 +15,17 @@ public class PetDBHelper extends SQLiteOpenHelper {
 
     // Versión actual de la BBDD
     private static final int DATABASE_VERSION = 1;
+
+    public long insertPet(Pet pet) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(PetContract.PetEntry.COLUMN_PET_NAME, pet.name);
+        cv.put(PetContract.PetEntry.COLUMN_PET_BREED, pet.breed);
+        cv.put(PetContract.PetEntry.COLUMN_PET_GENDER, pet.gender);
+        cv.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, pet.weight);
+        long newRowId = db.insert(PetContract.PetEntry.TABLE_NAME, null, cv);
+        return newRowId;
+    }
 
     public PetDBHelper(Context context) {
         super(context,  DATABASE_NAME, null, DATABASE_VERSION);
