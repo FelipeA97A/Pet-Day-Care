@@ -40,8 +40,31 @@ public class newPetActivity extends AppCompatActivity implements AdapterView.OnI
         genderSpinner.setOnItemSelectedListener(this);
     }
 
-    public void newInsertPet() {
-        Pet newPet = new Pet(name.getText().toString(), breed.getText().toString(), Double.parseDouble(weight.getText().toString()), gender);
+    public void verifyNewPet() {
+        String newName = name.getText().toString();
+        String newBreed = breed.getText().toString();
+        String weightStr = weight.getText().toString();
+
+        if (newName.isEmpty()) {
+            Toast.makeText(this, "El campo del nombre no puede estar vacío.", Toast.LENGTH_SHORT).show();
+        } else {
+            if (newBreed.isEmpty()) {
+                Toast.makeText(this, "El campo de la raza no puede estar vacío.", Toast.LENGTH_SHORT).show();
+            } else {
+                if (weightStr.isEmpty()) {
+                    Toast.makeText(this, "El campo del peso no puede estar vacío.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Double newWeight = Double.parseDouble(weightStr);
+                    newInsertPet(new Pet(newName, newBreed, newWeight, gender));
+                }
+            }
+        }
+
+
+        //Toast.makeText(this, "Nombre: " + newName + " Género: " + newBreed + " Peso: " + newWeight, Toast.LENGTH_SHORT).show();
+    }
+
+    public void newInsertPet(Pet newPet) {
         PetDBHelper DBH = new PetDBHelper(this);
         double test = DBH.insertPet(newPet);
         Log.i("Id de la mascota nueva:", "" + test);
@@ -63,7 +86,7 @@ public class newPetActivity extends AppCompatActivity implements AdapterView.OnI
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.newPetButton:
-                newInsertPet();
+                verifyNewPet();
                 break;
         }
     }

@@ -23,8 +23,7 @@ public class PetDBHelper extends SQLiteOpenHelper {
         cv.put(PetContract.PetEntry.COLUMN_PET_BREED, pet.breed);
         cv.put(PetContract.PetEntry.COLUMN_PET_GENDER, pet.gender);
         cv.put(PetContract.PetEntry.COLUMN_PET_WEIGHT, pet.weight);
-        long newRowId = db.insert(PetContract.PetEntry.TABLE_NAME, null, cv);
-        return newRowId;
+        return db.insert(PetContract.PetEntry.TABLE_NAME, null, cv);
     }
 
     public PetDBHelper(Context context) {
