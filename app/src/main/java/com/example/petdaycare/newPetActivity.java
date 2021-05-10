@@ -40,6 +40,7 @@ public class newPetActivity extends AppCompatActivity implements AdapterView.OnI
         genderSpinner.setOnItemSelectedListener(this);
     }
 
+    // Validación de campos
     public void verifyNewPet() {
         String newName = name.getText().toString();
         String newBreed = breed.getText().toString();
@@ -59,9 +60,6 @@ public class newPetActivity extends AppCompatActivity implements AdapterView.OnI
                 }
             }
         }
-
-
-        //Toast.makeText(this, "Nombre: " + newName + " Género: " + newBreed + " Peso: " + newWeight, Toast.LENGTH_SHORT).show();
     }
 
     public void newInsertPet(Pet newPet) {
