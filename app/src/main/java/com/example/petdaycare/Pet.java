@@ -1,6 +1,8 @@
 package com.example.petdaycare;
 
-public class Pet {
+import java.io.Serializable;
+
+public class Pet implements Serializable {
     public String name;
     public String breed;
     public double weight;

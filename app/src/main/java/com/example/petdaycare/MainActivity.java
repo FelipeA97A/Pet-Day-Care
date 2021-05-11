@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Switch;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import com.example.petdaycare.Data.PetContract;
 import com.example.petdaycare.Data.PetDBHelper;;
@@ -55,11 +56,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-        openPetActivity();
+        openPetActivity(i);
     }
 
-    public void openPetActivity() {
+    public void openPetActivity(int i) {
         Intent petActivity = new Intent(this, activity_pet.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("pet", pets.get(i));
+        petActivity.putExtras(bundle);
         startActivity(petActivity);
     }
 
