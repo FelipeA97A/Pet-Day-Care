@@ -34,18 +34,19 @@ public class activity_pet extends AppCompatActivity implements AdapterView.OnIte
         Pet receivedPet = (Pet)receivedObject.getSerializable("pet");
 
         //Toast.makeText(this, "" + receivedPet.name, Toast.LENGTH_SHORT).show();
-
+        String raza = receivedPet.breed;
+        //Toast.makeText(this, raza, Toast.LENGTH_SHORT).show();
         // Introducimos los datos de la mascota en los editText y el spinner.
         name.setText(receivedPet.name);
         weight.setText(String.valueOf(receivedPet.weight));
-        breed.setText(receivedPet.breed);
+        breed.setText(raza);
         gender.setSelection(getGender(receivedPet));
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     @Override

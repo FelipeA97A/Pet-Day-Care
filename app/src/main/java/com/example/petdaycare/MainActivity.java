@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Switch;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import com.example.petdaycare.Data.PetContract;
 import com.example.petdaycare.Data.PetDBHelper;;
@@ -19,6 +20,7 @@ import com.example.petdaycare.Data.PetDBHelper;;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     ArrayList<Pet> pets = new ArrayList<Pet>();
+    PetDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +29,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ListView mainList = (ListView) findViewById(R.id.mainList);
         ImageButton pawButton = findViewById(R.id.pawButton);
-        PetDBHelper dbHelper = new PetDBHelper(this);
+
+        //Creación de la base de datos en caso de que no exista
+        dbHelper = new PetDBHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        pets = setPets();
+        //Llamada al método de consulta de datos
+
+
+        pets = dbHelper.displayDBInfo();
         PetAdapter petAdapter = new PetAdapter(this, 0, pets);
         mainList.setAdapter(petAdapter);
         mainList.setOnItemClickListener(this);
@@ -80,4 +87,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent intent = new Intent(this, newPetActivity.class);
         startActivity(intent);
     }
+
+    public void onResume() {
+        super.onResume();
+        pets = dbHelper.displayDBInfo();
+    }
+
 }
